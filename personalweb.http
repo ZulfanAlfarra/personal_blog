@@ -1,0 +1,88 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+###
+POST http://localhost:8080/api/categories
+Content-Type: application/json
+
+{
+  "name": "Personal thought"
+}
+
+###
+GET http://localhost:8080/api/categories
+
+###
+DELETE http://localhost:8080/api/categories/7
+
+###
+PUT http://localhost:8080/api/categories/4
+Content-Type: application/json
+
+{
+  "name": "programming"
+}
+
+
+###
+POST http://localhost:8080/api/tags
+Content-Type: application/json
+
+{
+  "name": "backend"
+}
+
+
+###
+GET http://localhost:8080/api/tags
+
+###
+DELETE http://localhost:8080/api/tags/2
+
+###
+PUT http://localhost:8080/api/tags/1
+Content-Type: application/json
+
+{
+  "name": "backend"
+}
+
+
+###
+POST http://localhost:8080/api/blogs
+Content-Type: application/json
+
+{
+  "title": "Struggle Learning Programming",
+  "content": "Sometimes when you want to start learning code, you be like what the fuck am suppose to do especially when you have no mentor",
+  "category_id": 4,
+  "tag_ids": [2],
+  "status": "DRAFT"
+}
+
+###
+GET http://localhost:8080/api/blogs/12
+
+###
+DELETE http://localhost:8080/api/blogs/11
+
+###
+PUT http://localhost:8080/api/blogs/12
+Content-Type: application/json
+
+{
+  "title": "Struggle Learning Programming edited",
+  "content": "Sometimes when you want to start learning code, you be like what the fuck am suppose to do especially when you have no mentor",
+  "category_id": 4,
+  "tag_ids": [2],
+  "status": "PUBLISHED"
+}
+
+###
+PATCH http://localhost:8080/api/blogs/12
+Content-Type: application/json
+
+{
+  "status": "ARCHIVED"
+}
