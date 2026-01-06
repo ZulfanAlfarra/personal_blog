@@ -1,0 +1,32 @@
+package com.personal.web.controllers;
+
+import com.personal.web.dtos.LoginDto;
+import com.personal.web.dtos.RegisterDto;
+import com.personal.web.dtos.UserDto;
+import com.personal.web.services.AuthService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/auth")
+@RequiredArgsConstructor
+public class AuthController {
+    private final AuthService authService;
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> register(@Valid @RequestBody RegisterDto registerDto){
+        UserDto userDto = authService.create(registerDto);
+        return ResponseEntity.ok(userDto);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@Valid @RequestBody LoginDto loginDto){
+        String token = authService.login(loginDto);
+        return ResponseEntity.ok(token);
+    }
+}

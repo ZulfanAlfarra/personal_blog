@@ -13,6 +13,7 @@ import com.personal.web.repositories.BlogRepository;
 import com.personal.web.repositories.CategoryRepository;
 import com.personal.web.repositories.TagRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -22,6 +23,7 @@ import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
+@PreAuthorize("authentication.name == 'zulfan'")
 public class BlogService {
     private final BlogRepository blogRepository;
     private final CategoryRepository categoryRepository;
@@ -39,6 +41,7 @@ public class BlogService {
         }
         return tags;
     }
+
 
     public BlogResponseDto createBlog(BlogRequestDto requestDto){
         Category category = getCategoryOrThrow(requestDto.category_id());

@@ -62,7 +62,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/api/blogs/12
+GET http://localhost:8080/api/blogs
 
 ###
 DELETE http://localhost:8080/api/blogs/11
@@ -85,4 +85,22 @@ Content-Type: application/json
 
 {
   "status": "ARCHIVED"
+}
+
+###
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "kakang",
+  "password": "123admin"
+}
+
+###
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "zulfan",
+  "password": "123admin"
 }

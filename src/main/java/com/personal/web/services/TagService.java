@@ -10,12 +10,14 @@ import com.personal.web.mappers.CategoryAndTagMapper;
 import com.personal.web.repositories.BlogRepository;
 import com.personal.web.repositories.TagRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@PreAuthorize("authentication.name == 'zulfan'")
 public class TagService {
     private final TagRepository tagRepository;
     private final CategoryAndTagMapper categoryAndTagMapper;
