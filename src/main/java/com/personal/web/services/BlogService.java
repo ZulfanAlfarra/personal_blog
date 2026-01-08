@@ -15,8 +15,8 @@ import com.personal.web.repositories.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import org.springframework.data.domain.Pageable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -65,6 +65,11 @@ public class BlogService {
         return blogs.stream()
                 .map(blogMapper::toDtoResponse)
                 .toList();
+    }
+
+    public List<BlogResponseDto> getBlogByStatus(BlogStatus status, Pageable pageable){
+        List<Blog> blogs = blogRepository.findByStatus(status, pageable);
+        return blogs.stream().map(blogMapper::toDtoResponse).toList();
     }
 
     public BlogResponseDto getBlogById(Long id){

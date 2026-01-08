@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.domain.Pageable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,30 @@ public class BlogController {
     @GetMapping
     public ResponseEntity<SuccessResponse> getAllBlog(){
         List<BlogResponseDto> blogs = blogService.getAll();
+        return ResponseEntity.ok(
+                new SuccessResponse(blogs, LocalDateTime.now())
+        );
+    }
+
+    @GetMapping("/published")
+    public ResponseEntity<SuccessResponse> getBlogPublished(Pageable pageable){
+        List<BlogResponseDto> blogs = blogService.getBlogByStatus(BlogStatus.PUBLISHED, pageable);
+        return ResponseEntity.ok(
+                new SuccessResponse(blogs, LocalDateTime.now())
+        );
+    }
+
+    @GetMapping("/archived")
+    public ResponseEntity<SuccessResponse> getBlogArchived(Pageable pageable){
+        List<BlogResponseDto> blogs = blogService.getBlogByStatus(BlogStatus.ARCHIVED, pageable);
+        return ResponseEntity.ok(
+                new SuccessResponse(blogs, LocalDateTime.now())
+        );
+    }
+
+    @GetMapping("/draft")
+    public ResponseEntity<SuccessResponse> getBlogDraft(Pageable pageable){
+        List<BlogResponseDto> blogs = blogService.getBlogByStatus(BlogStatus.DRAFT, pageable);
         return ResponseEntity.ok(
                 new SuccessResponse(blogs, LocalDateTime.now())
         );
