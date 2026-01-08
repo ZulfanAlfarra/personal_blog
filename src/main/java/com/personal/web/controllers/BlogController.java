@@ -2,6 +2,7 @@ package com.personal.web.controllers;
 
 import com.personal.web.dtos.BlogRequestDto;
 import com.personal.web.dtos.BlogResponseDto;
+import com.personal.web.dtos.SuccessResponse;
 import com.personal.web.dtos.UpdateBlogStatusRequest;
 import com.personal.web.entities.BlogStatus;
 import com.personal.web.services.BlogService;
@@ -10,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/blogs")
@@ -19,21 +22,27 @@ public class BlogController {
     private final BlogService blogService;
 
     @PostMapping
-    public ResponseEntity<BlogResponseDto> createBlog(@Valid @RequestBody BlogRequestDto request){
+    public ResponseEntity<SuccessResponse> createBlog(@Valid @RequestBody BlogRequestDto request){
         BlogResponseDto blog = blogService.createBlog(request);
-        return ResponseEntity.ok(blog);
+        return ResponseEntity.ok(
+                new SuccessResponse(List.of(blog), LocalDateTime.now())
+        );
     }
 
     @GetMapping
-    public ResponseEntity<List<BlogResponseDto>> getAllBlog(){
+    public ResponseEntity<SuccessResponse> getAllBlog(){
         List<BlogResponseDto> blogs = blogService.getAll();
-        return ResponseEntity.ok(blogs);
+        return ResponseEntity.ok(
+                new SuccessResponse(blogs, LocalDateTime.now())
+        );
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BlogResponseDto> getBlogById(@PathVariable Long id){
+    public ResponseEntity<SuccessResponse> getBlogById(@PathVariable Long id){
         BlogResponseDto blog = blogService.getBlogById(id);
-        return ResponseEntity.ok(blog);
+        return ResponseEntity.ok(
+                new SuccessResponse(List.of(blog), LocalDateTime.now())
+        );
     }
 
     @DeleteMapping("/{id}")
@@ -43,14 +52,18 @@ public class BlogController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BlogResponseDto> updateBlog(@PathVariable Long id, @Valid @RequestBody BlogRequestDto requestDto){
+    public ResponseEntity<SuccessResponse> updateBlog(@PathVariable Long id, @Valid @RequestBody BlogRequestDto requestDto){
         BlogResponseDto blog = blogService.updateBlog(id, requestDto);
-        return ResponseEntity.ok(blog);
+        return ResponseEntity.ok(
+                new SuccessResponse(List.of(blog), LocalDateTime.now())
+        );
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<BlogResponseDto> updateBlogStatus(@PathVariable Long id, @Valid @RequestBody UpdateBlogStatusRequest request){
+    public ResponseEntity<SuccessResponse> updateBlogStatus(@PathVariable Long id, @Valid @RequestBody UpdateBlogStatusRequest request){
         BlogResponseDto blog = blogService.updateBlogStatus(id, request.status());
-        return ResponseEntity.ok(blog);
+        return ResponseEntity.ok(
+                new SuccessResponse(List.of(blog), LocalDateTime.now())
+        );
     }
 }

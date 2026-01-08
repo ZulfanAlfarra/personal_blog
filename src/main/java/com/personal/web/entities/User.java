@@ -40,4 +40,5 @@ public class User implements UserDetails {
     public String getPassword(){
         return this.password;
     }
+
 }

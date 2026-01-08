@@ -1,4 +1,4 @@
-package com.personal.web.config;
+package com.personal.web.security;
 
 import com.personal.web.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -6,8 +6,6 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 @RequiredArgsConstructor
 public class ZulfanAuthenticationProvider implements AuthenticationProvider {

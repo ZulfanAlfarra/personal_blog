@@ -3,6 +3,7 @@ package com.personal.web.exceptions;
 import com.personal.web.dtos.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -73,5 +74,17 @@ public class GlobalExceptionHandler {
                 )
         );
     }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handlerBadCredentialException(BadCredentialsException ex){
+        return buildErrorResponse(
+                HttpStatus.BAD_REQUEST,
+                Map.of(
+                        "global", List.of("Username or password is incorrect")
+                )
+        );
+    }
+
+
 
 }

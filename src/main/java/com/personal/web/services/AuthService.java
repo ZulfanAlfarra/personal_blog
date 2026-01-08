@@ -5,10 +5,12 @@ import com.personal.web.dtos.RegisterDto;
 import com.personal.web.dtos.UserDto;
 import com.personal.web.entities.User;
 import com.personal.web.exceptions.ConflictException;
+import com.personal.web.exceptions.DuplicateException;
 import com.personal.web.mappers.UserMapper;
 import com.personal.web.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,9 +25,9 @@ public class AuthService {
     private final UserMapper userMapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserDto create(RegisterDto req){
+    public UserDto signup(RegisterDto req){
         if(userRepository.existsByUsername(req.username())) {
-            throw new ConflictException("Username is already exists");
+            throw new DuplicateException("Username is already exists");
         }
 
         User user = userMapper.toEntity(req);
